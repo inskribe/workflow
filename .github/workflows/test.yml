@@ -1,0 +1,28 @@
+---
+name: Test & Validate Migrations
+
+on:
+  pull_request:
+    branches: [master, dev]
+
+  push:
+    branches: [master, dev]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pkg: [./cmd/some]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: false
+
+      - name: some
+        run: echo "${{github.event_name}}"
+
+      - name: Run Tests for ${{matrix.pkg}}
+        run: go test ${{matrix.pkg}}/... -v
