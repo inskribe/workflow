@@ -22,7 +22,7 @@ jobs:
           cache: false
 
       - name: some
-        run: echo "${{github.event_name}}"
+        run: echo "${{github.event}}"
 
       - name: Run Tests for ${{matrix.pkg}}
         run: go test ${{matrix.pkg}}/... -v
